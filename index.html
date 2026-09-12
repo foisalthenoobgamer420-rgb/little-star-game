@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Little Star Catch ⭐</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <h1>🌟 Little Star Catch 🌟</h1>
+
+    <p class="subtitle">
+        Catch the stars and collect the magic! 💖
+    </p>
+
+
+    <!-- INFO BAR -->
+    <div class="info-bar">
+
+        <div>⭐ Score: <span id="score">0</span></div>
+
+        <div>🪙 Coins: <span id="coins">0</span></div>
+
+        <div>❤️ Lives: <span id="lives">5</span></div>
+
+        <div>🏆 Level: <span id="level">1</span></div>
+
+        <div>⏰ Time: <span id="time">60</span></div>
+
+        <div>👑 Best: <span id="highScore">0</span></div>
+
+    </div>
+
+
+    <!-- MUSIC -->
+    <button id="musicButton" class="music-button">
+        🔊 Music ON
+    </button>
+
+    <div id="powerStatus"></div>
+
+
+    <!-- GAME AREA -->
+    <div id="gameArea">
+
+        <!-- EXIT FULLSCREEN -->
+        <button id="exitFullscreenButton">
+            ❌ Exit Fullscreen
+        </button>
+
+
+        <!-- BACKGROUND -->
+        <div class="cloud cloud1">☁️</div>
+        <div class="cloud cloud2">☁️</div>
+        <div class="cloud cloud3">☁️</div>
+
+        <div class="flower flower1">🌸</div>
+        <div class="flower flower2">🌼</div>
+        <div class="flower flower3">🌷</div>
+        <div class="flower flower4">🌻</div>
+
+
+        <!-- PLAYER -->
+        <div id="player">👧</div>
+
+
+        <!-- OBJECTS -->
+        <div id="star">⭐</div>
+
+        <div id="coin">🪙</div>
+
+        <div id="heart">❤️</div>
+
+        <div id="boost">⚡</div>
+
+
+        <!-- PARTICLES -->
+        <div id="particles"></div>
+
+
+        <!-- EFFECT LAYER -->
+        <div id="effectLayer"></div>
+
+
+        <!-- LEVEL COMPLETE -->
+        <div id="levelCompleteScreen" class="screen">
+
+            <div class="screen-box celebration-box">
+
+                <div class="big-emoji">
+                    🎉
+                </div>
+
+                <h2>Level Complete!</h2>
+
+                <p>
+                    You completed Level
+                    <strong id="completedLevel">1</strong>!
+                </p>
+
+                <p id="levelMessage">
+                    Get ready for the next level! ⭐
+                </p>
+
+                <button id="nextLevelButton">
+                    ➡️ Next Level
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- GAME OVER -->
+        <div id="gameOverScreen" class="screen">
+
+            <div class="screen-box gameover-box">
+
+                <div class="big-emoji">
+                    💥
+                </div>
+
+                <h2>💣 Game Over!</h2>
+
+                <p>
+                    Your Score:
+                    <strong id="finalScore">0</strong>
+                </p>
+
+                <p>
+                    Best Score:
+                    <strong id="gameOverHighScore">0</strong>
+                </p>
+
+                <button id="restartButton">
+                    🔄 Play Again
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- WIN -->
+        <div id="winScreen" class="screen">
+
+            <div class="screen-box win-box">
+
+                <div class="big-emoji">
+                    🏆
+                </div>
+
+                <h2>YOU WIN!</h2>
+
+                <p>
+                    🌟 You are a Star Catcher! 🌟
+                </p>
+
+                <p>
+                    Final Score:
+                    <strong id="winScore">0</strong>
+                </p>
+
+                <p>
+                    Best Score:
+                    <strong id="winHighScore">0</strong>
+                </p>
+
+                <button id="winRestartButton">
+                    🎮 Play Again
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE CONTROLS -->
+    <div class="controls">
+
+        <button id="leftButton">
+            ⬅️
+        </button>
+
+        <button id="rightButton">
+            ➡️
+        </button>
+
+    </div>
+
+
+    <!-- GAME BUTTONS -->
+    <div class="game-buttons">
+
+        <button id="startButton">
+            ▶️ Start Game
+        </button>
+
+        <button id="pauseButton" style="display:none;">
+            ⏸️ Pause
+        </button>
+
+        <button id="fullscreenButton">
+            ⛶ Fullscreen
+        </button>
+
+    </div>
+
+
+    <p id="musicStatus"></p>
+
+</div>
+
+
+<!-- BACKGROUND MUSIC -->
+<audio
+    id="backgroundMusic"
+    src="./music.mp3"
+    preload="auto"
+    loop>
+</audio>
+
+
+<script src="./game.js"></script>
+
+</body>
+</html>

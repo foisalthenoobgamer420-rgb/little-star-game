@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- BROWSER TAB NAME -->
     <title>⭐ Little Star Game</title>
 
-    <!-- BROWSER TAB ICON -->
     <link rel="icon"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E⭐%3C/text%3E%3C/svg%3E">
 
@@ -18,91 +16,60 @@
 
 <div class="game-container">
 
-    <!-- GAME NAME -->
     <h1>🌟 Little Star Game 🌟</h1>
 
     <p class="subtitle">
         Catch the stars and collect the magic! 💖
     </p>
 
-    <!-- INFO BAR -->
+    <!-- INFO -->
     <div class="info-bar">
 
-        <div>
-            ⭐ Score
-            <span id="score">0</span>
-        </div>
-
-        <div>
-            🪙 Coins
-            <span id="coins">0</span>
-        </div>
-
-        <div>
-            ❤️ Lives
-            <span id="lives">5</span>
-        </div>
-
-        <div>
-            🏆 Level
-            <span id="level">1</span>
-        </div>
-
-        <div>
-            ⏱️ Time
-            <span id="time">60</span>
-        </div>
-
-        <div>
-            🥇 High
-            <span id="highScore">0</span>
-        </div>
+        <div>⭐ Score: <span id="score">0</span></div>
+        <div>🪙 Coins: <span id="coins">0</span></div>
+        <div>❤️ Lives: <span id="lives">5</span></div>
+        <div>🏆 Level: <span id="level">1</span></div>
+        <div>⏱️ Time: <span id="time">60</span></div>
+        <div>🔥 Best: <span id="highScore">0</span></div>
 
     </div>
-
-    <!-- MUSIC -->
-    <div class="top-controls">
-
-        <button id="musicButton">
-            🎵 Music ON
-        </button>
-
-        <span id="musicStatus">
-            Music ON
-        </span>
-
-    </div>
-
-    <!-- POWER STATUS -->
-    <div id="powerStatus"></div>
 
     <!-- GAME AREA -->
     <div id="gameArea">
 
-        <!-- CLOUDS -->
         <div class="cloud cloud1">☁️</div>
         <div class="cloud cloud2">☁️</div>
-        <div class="cloud cloud3">☁️</div>
 
-        <!-- FLOWERS -->
         <div class="flower flower1">🌸</div>
-        <div class="flower flower2">🌷</div>
-        <div class="flower flower3">🌼</div>
+        <div class="flower flower2">🌼</div>
 
-        <!-- PLAYER -->
         <div id="player">🧸</div>
 
-        <!-- FALLING ITEMS -->
         <div id="star">⭐</div>
         <div id="coin">🪙</div>
         <div id="heart">❤️</div>
         <div id="boost">⚡</div>
 
-        <!-- PARTICLES -->
         <div id="particles"></div>
-
-        <!-- EFFECT LAYER -->
         <div id="effectLayer"></div>
+
+    </div>
+
+    <!-- STATUS -->
+    <div class="status-area">
+        <div id="powerStatus"></div>
+    </div>
+
+    <!-- MUSIC -->
+    <div class="music-control">
+
+        <button id="musicButton">
+            🎵 Music
+        </button>
+
+        <span id="musicStatus">
+            OFF
+        </span>
 
     </div>
 
@@ -110,7 +77,6 @@
     <div class="mobile-controls">
 
         <button id="leftButton">⬅️</button>
-
         <button id="rightButton">➡️</button>
 
     </div>
@@ -119,7 +85,7 @@
     <div class="main-buttons">
 
         <button id="startButton">
-            🎮 Start Game
+            ▶️ Start Game
         </button>
 
         <button id="pauseButton">
@@ -132,140 +98,158 @@
 
     </div>
 
+</div>
 
-    <!-- ========================= -->
-    <!-- LEVEL COMPLETE SCREEN -->
-    <!-- ========================= -->
 
-    <div id="levelCompleteScreen" class="overlay">
+<!-- LEVEL COMPLETE -->
+<div id="levelCompleteScreen" class="overlay hidden">
 
-        <div class="popup level-popup">
+    <div class="level-popup">
 
-            <div class="celebration">
-
-                <span>🎉</span>
-                <span>⭐</span>
-                <span>🎊</span>
-                <span>✨</span>
-                <span>🌟</span>
-
-            </div>
-
-            <h2>🎉 LEVEL COMPLETE! 🎉</h2>
-
-            <p>
-                Amazing! You completed
-                <strong>Level <span id="completedLevel">1</span></strong>!
-            </p>
-
-            <p id="levelMessage">
-                Get ready for the next challenge! 🚀
-            </p>
-
-            <button id="nextLevelButton">
-                🚀 Next Level
-            </button>
-
+        <div class="celebration-blast">
+            <span>🎉</span>
+            <span>✨</span>
+            <span>🎊</span>
+            <span>⭐</span>
+            <span>💥</span>
+            <span>🎆</span>
         </div>
+
+        <div class="celebrate-emoji">
+            🎉
+        </div>
+
+        <h2>LEVEL COMPLETE! 🎉</h2>
+
+        <p>
+            Level <strong id="completedLevel">1</strong>
+            Complete!
+        </p>
+
+        <p id="levelMessage">
+            Amazing! Keep going! ⭐
+        </p>
+
+        <button id="nextLevelButton">
+            ➡️ Next Level
+        </button>
 
     </div>
 
+</div>
 
-    <!-- ========================= -->
-    <!-- GAME OVER SCREEN -->
-    <!-- ========================= -->
 
-    <div id="gameOverScreen" class="overlay">
+<!-- GAME OVER -->
+<div id="gameOverScreen" class="overlay hidden">
 
-        <div class="popup game-over-popup">
+    <div class="gameover-popup">
 
-            <div class="bomb">
+        <div class="bomb-explosion">
 
-                <span>💣</span>
-
-            </div>
-
-            <div class="explosion">
-
-                <span>💥</span>
-                <span>🔥</span>
-                <span>💥</span>
-                <span>🔥</span>
-                <span>💥</span>
-
-            </div>
-
-            <h2>💥 GAME OVER 💥</h2>
-
-            <p>
-                Your Score:
-                <strong id="finalScore">0</strong>
-            </p>
-
-            <p>
-                🏆 High Score:
-                <strong id="gameOverHighScore">0</strong>
-            </p>
-
-            <button id="restartButton">
-                🔄 Play Again
-            </button>
+            <span>💣</span>
+            <span>💥</span>
+            <span>🔥</span>
+            <span>💥</span>
+            <span>🔥</span>
+            <span>💥</span>
 
         </div>
 
+        <div class="bomb">
+            💣
+        </div>
+
+        <h2>💥 GAME OVER! 💥</h2>
+
+        <p>
+            Your Score:
+            <strong id="finalScore">0</strong>
+        </p>
+
+        <p>
+            High Score:
+            <strong id="gameOverHighScore">0</strong>
+        </p>
+
+        <button id="restartButton">
+            🔄 Play Again
+        </button>
+
     </div>
 
+</div>
 
-    <!-- ========================= -->
-    <!-- WIN SCREEN -->
-    <!-- ========================= -->
 
-    <div id="winScreen" class="overlay">
+<!-- FINAL WIN -->
+<div id="winScreen" class="overlay hidden">
 
-        <div class="popup win-popup">
+    <div class="win-popup">
 
-            <div class="win-celebration">
+        <div class="final-fireworks">
 
-                <span>🏆</span>
-                <span>🎉</span>
-                <span>⭐</span>
-                <span>🎊</span>
-                <span>🌟</span>
+            <span>🎆</span>
+            <span>✨</span>
+            <span>🎉</span>
+            <span>⭐</span>
+            <span>🎊</span>
+            <span>💥</span>
+            <span>🎇</span>
+            <span>✨</span>
 
-            </div>
+        </div>
 
-            <h2>🏆 YOU WIN! 🏆</h2>
+        <div class="final-trophy">
+            🏆
+        </div>
+
+        <h2>
+            🎉 GAME COMPLETE! 🎉
+        </h2>
+
+        <h3>
+            🌟 YOU DID IT! 🌟
+        </h3>
+
+        <p class="final-title">
+            YOU COMPLETED ALL 10 LEVELS!
+        </p>
+
+        <p class="final-message">
+            🥳 AMAZING! 🥳<br>
+            You are the STAR MASTER! ⭐👑
+        </p>
+
+        <div class="final-score-box">
 
             <p>
-                You completed all
-                <strong>10 Levels!</strong>
-            </p>
-
-            <p>
-                Final Score:
+                🏆 Final Score:
                 <strong id="winScore">0</strong>
             </p>
 
             <p>
-                High Score:
+                🔥 High Score:
                 <strong id="winHighScore">0</strong>
             </p>
 
-            <button id="winRestartButton">
-                🔄 Play Again
-            </button>
-
         </div>
+
+        <button id="winRestartButton">
+            🔄 Play Again
+        </button>
 
     </div>
 
-
-    <!-- BACKGROUND MUSIC -->
-    <audio id="backgroundMusic" loop preload="auto">
-        <source src="./music.mp3" type="audio/mpeg">
-    </audio>
-
 </div>
+
+
+<!-- MUSIC FILE -->
+<audio id="backgroundMusic"
+       loop
+       preload="auto">
+
+    <source src="./music.mp3" type="audio/mpeg">
+
+</audio>
 
 
 <script src="./game.js"></script>

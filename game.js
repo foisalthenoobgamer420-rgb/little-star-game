@@ -3,7 +3,7 @@
 
 /* =====================================================
    LITTLE STAR GAME
-   10 LEVELS / 60 SECONDS / 5 LIVES
+   10 LEVELS / 300 SECONDS / 5 LIVES
 ===================================================== */
 
 
@@ -102,7 +102,7 @@ let starsCollected = 0;
 
 let starsNeeded = level * 5;
 
-let timeLeft = 60;
+let timeLeft = 300;
 
 let gameRunning = false;
 
@@ -1111,7 +1111,7 @@ function startGame() {
     starsNeeded =
         level * 5;
 
-    timeLeft = 60;
+    timeLeft = 300;
 
     starSpeed = 180;
 
@@ -1348,7 +1348,7 @@ function nextLevel() {
     starsNeeded =
         level * 5;
 
-    timeLeft = 60;
+    timeLeft = 300;
 
     starSpeed =
         180 +

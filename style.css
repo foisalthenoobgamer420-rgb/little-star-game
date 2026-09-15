@@ -1,7 +1,5 @@
 * {
     box-sizing: border-box;
-    user-select: none;
-    -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -11,10 +9,12 @@ body {
     padding: 0;
     width: 100%;
     min-height: 100%;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+
     background:
         linear-gradient(
             135deg,
@@ -23,45 +23,34 @@ body {
             #d8ffd0
         );
 
-    text-align: center;
     overflow-x: hidden;
 }
 
-
-/* =========================
-   MAIN CONTAINER
-========================= */
-
 .game-container {
     width: 100%;
-    min-height: 100vh;
+    max-width: 1000px;
+    margin: auto;
     padding: 15px;
 }
 
-
-/* =========================
-   TITLE
-========================= */
-
 h1 {
-    margin: 10px 0 2px;
+    margin: 10px 0 3px;
 
     color: #ff4fa3;
 
-    font-size: clamp(30px, 6vw, 55px);
+    font-size: clamp(28px, 5vw, 48px);
 
     text-shadow:
         2px 2px 0 white,
-        4px 4px 10px rgba(255, 79, 163, 0.25);
+        0 0 15px rgba(255, 79, 163, 0.3);
 }
 
 .subtitle {
-    margin: 5px 0 15px;
+    margin: 0 0 12px;
 
     color: #555;
 
-    font-size: clamp(14px, 3vw, 20px);
-
+    font-size: 17px;
     font-weight: bold;
 }
 
@@ -71,164 +60,32 @@ h1 {
 ========================= */
 
 .info-bar {
-    width: min(1100px, 96%);
-
-    margin: 0 auto 10px;
-
-    padding: 12px;
+    width: 100%;
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
-    gap: 10px;
-
     flex-wrap: wrap;
-
-    background: rgba(255, 255, 255, 0.92);
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.12);
-
-    font-weight: bold;
-
-    color: #555;
-}
-
-.info-bar div {
-    padding: 7px 12px;
-
-    background: #fff;
-
-    border-radius: 14px;
-
-    box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.info-bar span {
-    color: #ff4fa3;
-
-    margin-left: 3px;
-}
-
-
-/* =========================
-   TOP CONTROLS
-========================= */
-
-.top-controls {
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
 
     gap: 8px;
 
-    margin: 8px;
-}
+    padding: 10px;
 
-#musicStatus {
-    font-weight: bold;
-
-    color: #555;
-}
-
-button {
-    border: none;
-
-    cursor: pointer;
-
-    touch-action: manipulation;
-
-    font-family: inherit;
-
-    font-weight: bold;
-
-    transition:
-        transform 0.12s ease,
-        box-shadow 0.12s ease;
-}
-
-button:hover {
-    transform: translateY(-2px);
-}
-
-button:active {
-    transform: scale(0.94);
-}
-
-
-/* =========================
-   BUTTONS
-========================= */
-
-.top-controls button,
-.main-buttons button,
-.mobile-controls button,
-.popup button {
-    padding: 11px 20px;
+    background: rgba(255, 255, 255, 0.88);
 
     border-radius: 18px;
 
-    background: white;
-
-    color: #ff4fa3;
-
     box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.13);
+        0 8px 20px rgba(0, 0, 0, 0.12);
 
     font-size: 16px;
-}
-
-.main-buttons {
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
-
-    margin-top: 12px;
-}
-
-#startButton {
-    background: #ff4fa3;
-
-    color: white;
-
-    font-size: 18px;
-
-    padding: 13px 28px;
-}
-
-#pauseButton {
-    display: none;
-}
-
-
-/* =========================
-   POWER STATUS
-========================= */
-
-#powerStatus {
-    min-height: 25px;
-
-    margin: 5px;
-
-    color: #ff7b00;
-
     font-weight: bold;
+}
 
-    font-size: 18px;
+.info-bar div {
+    padding: 5px 9px;
+
+    white-space: nowrap;
 }
 
 
@@ -239,29 +96,31 @@ button:active {
 #gameArea {
     position: relative;
 
-    width: min(1100px, 96%);
+    width: 100%;
+    max-width: 850px;
 
-    height: min(68vh, 650px);
-
+    height: min(65vh, 600px);
     min-height: 430px;
 
-    margin: 0 auto;
+    margin: 15px auto;
 
     overflow: hidden;
 
-    border: 6px solid white;
-
-    border-radius: 30px;
+    border: 5px solid white;
+    border-radius: 28px;
 
     background:
         linear-gradient(
-            #8edfff 0%,
-            #bdefff 55%,
+            #9ee7ff 0%,
+            #ccefff 55%,
             #d8ffd0 100%
         );
 
     box-shadow:
-        0 15px 45px rgba(0, 0, 0, 0.18);
+        0 15px 35px rgba(0, 0, 0, 0.18);
+
+    user-select: none;
+    touch-action: none;
 }
 
 
@@ -272,50 +131,38 @@ button:active {
 .cloud {
     position: absolute;
 
-    font-size: 60px;
+    font-size: 50px;
 
     opacity: 0.75;
 
     pointer-events: none;
-}
-
-.cloud1 {
-    top: 30px;
-
-    left: -100px;
 
     animation: cloudMove 18s linear infinite;
 }
 
-.cloud2 {
-    top: 120px;
-
-    left: -200px;
-
-    font-size: 45px;
-
-    animation: cloudMove 25s linear infinite;
+.cloud1 {
+    top: 30px;
+    left: -80px;
 }
 
-.cloud3 {
-    top: 210px;
-
+.cloud2 {
+    top: 130px;
     left: -150px;
 
-    font-size: 35px;
+    font-size: 40px;
 
-    animation: cloudMove 30s linear infinite;
+    animation-duration: 25s;
+    animation-delay: 5s;
 }
 
 @keyframes cloudMove {
+
     from {
-        transform: translateX(0);
+        transform: translateX(-100px);
     }
 
     to {
-        transform: translateX(
-            calc(100vw + 400px)
-        );
+        transform: translateX(1000px);
     }
 }
 
@@ -329,21 +176,17 @@ button:active {
 
     bottom: 5px;
 
-    pointer-events: none;
+    font-size: 30px;
 
-    font-size: 35px;
+    pointer-events: none;
 }
 
 .flower1 {
-    left: 5%;
+    left: 20px;
 }
 
 .flower2 {
-    left: 50%;
-}
-
-.flower3 {
-    right: 5%;
+    right: 20px;
 }
 
 
@@ -354,15 +197,16 @@ button:active {
 #player {
     position: absolute;
 
+    left: 50%;
     bottom: 15px;
 
-    left: 50%;
+    font-size: 58px;
+
+    transform: translateX(-50%);
 
     z-index: 20;
 
-    font-size: clamp(48px, 7vw, 75px);
-
-    transform: translateX(-50%);
+    user-select: none;
 
     will-change: left;
 
@@ -374,7 +218,7 @@ button:active {
 
 
 /* =========================
-   FALLING ITEMS
+   FALLING OBJECTS
 ========================= */
 
 #star,
@@ -383,40 +227,137 @@ button:active {
 #boost {
     position: absolute;
 
-    z-index: 15;
+    z-index: 10;
 
-    display: block;
-
-    transform: translateX(-50%);
-
-    font-size: clamp(35px, 5vw, 50px);
+    user-select: none;
 
     pointer-events: none;
 
-    will-change: top;
+    will-change: top, left;
 }
 
 #star {
-    filter:
-        drop-shadow(
-            0 0 8px #fff
-        );
+    font-size: 45px;
 
-    animation: starGlow 0.8s infinite alternate;
+    animation: starSpin 1.4s linear infinite;
 }
 
-@keyframes starGlow {
+#coin {
+    font-size: 38px;
+    display: none;
+}
+
+#heart {
+    font-size: 40px;
+    display: none;
+}
+
+#boost {
+    font-size: 40px;
+    display: none;
+}
+
+@keyframes starSpin {
+
     from {
-        transform:
-            translateX(-50%)
-            scale(1);
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.12);
     }
 
     to {
-        transform:
-            translateX(-50%)
-            scale(1.15);
+        transform: rotate(360deg) scale(1);
     }
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-area {
+    min-height: 35px;
+}
+
+#powerStatus {
+    color: #ff7b00;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    animation: powerPulse 0.6s infinite alternate;
+}
+
+@keyframes powerPulse {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.08);
+    }
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    border: none;
+
+    padding: 12px 22px;
+
+    margin: 5px;
+
+    border-radius: 25px;
+
+    background: #ff69b4;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+}
+
+button:hover {
+    transform: scale(1.06);
+
+    box-shadow:
+        0 7px 16px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+
+/* =========================
+   MUSIC
+========================= */
+
+.music-control {
+    margin: 4px 0;
+}
+
+#musicStatus {
+    font-weight: bold;
+
+    color: #666;
 }
 
 
@@ -429,81 +370,42 @@ button:active {
 
     justify-content: center;
 
-    gap: 25px;
+    gap: 20px;
 
-    margin-top: 12px;
+    margin-top: 5px;
 }
 
 .mobile-controls button {
-    width: 90px;
+    width: 100px;
 
-    height: 60px;
+    height: 55px;
 
-    font-size: 30px;
+    font-size: 25px;
 
     touch-action: none;
 }
 
 
 /* =========================
-   PARTICLES
+   MAIN BUTTONS
 ========================= */
 
-#particles {
-    position: absolute;
+.main-buttons {
+    display: flex;
 
-    inset: 0;
+    justify-content: center;
 
-    pointer-events: none;
+    flex-wrap: wrap;
 
-    z-index: 40;
+    gap: 5px;
 }
 
-.particle {
-    position: absolute;
-
-    font-size: 25px;
-
-    pointer-events: none;
-
-    animation:
-        particleBlast 0.8s ease-out forwards;
+#pauseButton {
+    background: #8e7dff;
 }
 
-@keyframes particleBlast {
-    from {
-        opacity: 1;
-
-        transform:
-            translate(0, 0)
-            scale(1);
-    }
-
-    to {
-        opacity: 0;
-
-        transform:
-            translate(
-                var(--dx),
-                var(--dy)
-            )
-            scale(0.3);
-    }
-}
-
-
-/* =========================
-   EFFECT LAYER
-========================= */
-
-#effectLayer {
-    position: absolute;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: 100;
+#fullscreenButton {
+    background: #4db6ff;
 }
 
 
@@ -516,111 +418,263 @@ button:active {
 
     inset: 0;
 
-    z-index: 999;
+    z-index: 9999;
 
-    display: none;
-
-    align-items: center;
+    display: flex;
 
     justify-content: center;
+    align-items: center;
 
     padding: 20px;
 
     background:
-        rgba(20, 10, 30, 0.72);
+        rgba(0, 0, 0, 0.55);
 
     backdrop-filter: blur(5px);
 }
 
-.popup {
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   LEVEL COMPLETE
+========================= */
+
+.level-popup {
     position: relative;
+
+    overflow: hidden;
 
     width: min(500px, 95vw);
 
     padding: 35px 25px;
 
-    background: white;
-
     border-radius: 30px;
 
-    box-shadow:
-        0 20px 70px rgba(0, 0, 0, 0.35);
+    background:
+        linear-gradient(
+            135deg,
+            #fff7a8,
+            #ffd6f6,
+            #cce7ff
+        );
 
-    animation: popupIn 0.5s ease;
+    box-shadow:
+        0 0 50px rgba(255, 255, 255, 0.8);
+
+    animation: popupIn 0.6s ease-out;
 }
 
-@keyframes popupIn {
-    from {
-        opacity: 0;
+.celebrate-emoji {
+    font-size: 85px;
 
-        transform:
-            scale(0.5)
-            rotate(-5deg);
+    animation:
+        celebrationPop 0.8s infinite alternate;
+}
+
+.level-popup h2 {
+    color: #ff4fa3;
+
+    font-size: 32px;
+}
+
+.celebration-blast span {
+    position: absolute;
+
+    font-size: 35px;
+
+    animation:
+        celebrationBlast 1.8s infinite;
+}
+
+.celebration-blast span:nth-child(1) {
+    left: 5%;
+    top: 10%;
+}
+
+.celebration-blast span:nth-child(2) {
+    right: 5%;
+    top: 15%;
+
+    animation-delay: .2s;
+}
+
+.celebration-blast span:nth-child(3) {
+    left: 10%;
+    bottom: 15%;
+
+    animation-delay: .4s;
+}
+
+.celebration-blast span:nth-child(4) {
+    right: 10%;
+    bottom: 10%;
+
+    animation-delay: .6s;
+}
+
+.celebration-blast span:nth-child(5) {
+    left: 45%;
+    top: 5%;
+
+    animation-delay: .8s;
+}
+
+.celebration-blast span:nth-child(6) {
+    right: 45%;
+    bottom: 5%;
+
+    animation-delay: 1s;
+}
+
+@keyframes celebrationBlast {
+
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    40% {
+        transform: scale(1.5) rotate(180deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.5) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes celebrationPop {
+
+    from {
+        transform: scale(0.8) rotate(-8deg);
     }
 
     to {
-        opacity: 1;
-
-        transform:
-            scale(1)
-            rotate(0);
+        transform: scale(1.15) rotate(8deg);
     }
-}
-
-.popup h2 {
-    margin: 10px 0;
-
-    font-size: clamp(28px, 6vw, 45px);
-}
-
-.popup p {
-    font-size: 20px;
-
-    color: #555;
-}
-
-.popup button {
-    margin-top: 15px;
-
-    background: #ff4fa3;
-
-    color: white;
-
-    font-size: 18px;
 }
 
 
 /* =========================
-   LEVEL CELEBRATION
+   GAME OVER
 ========================= */
 
-.celebration {
-    display: flex;
+.gameover-popup {
+    position: relative;
 
-    justify-content: center;
+    overflow: hidden;
 
-    gap: 10px;
+    width: min(500px, 95vw);
 
-    font-size: 45px;
+    padding: 35px 25px;
 
-    animation: celebrationBlast 1.2s ease infinite;
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb3b3,
+            #ffdddd,
+            #ffffff
+        );
+
+    box-shadow:
+        0 0 60px rgba(255, 50, 50, 0.7);
+
+    animation:
+        gameOverPopup 0.6s ease-out;
 }
 
-@keyframes celebrationBlast {
+.bomb {
+    font-size: 90px;
+
+    animation:
+        bombShake 0.12s infinite alternate;
+}
+
+.gameover-popup h2 {
+    color: #d60000;
+
+    font-size: 38px;
+
+    animation:
+        gameOverText 0.5s infinite alternate;
+}
+
+.bomb-explosion span {
+    position: absolute;
+
+    font-size: 40px;
+
+    animation:
+        explosionBlast 1s infinite;
+}
+
+.bomb-explosion span:nth-child(1) {
+    left: 5%;
+    top: 5%;
+}
+
+.bomb-explosion span:nth-child(2) {
+    right: 5%;
+    top: 10%;
+
+    animation-delay: .15s;
+}
+
+.bomb-explosion span:nth-child(3) {
+    left: 10%;
+    bottom: 10%;
+
+    animation-delay: .3s;
+}
+
+.bomb-explosion span:nth-child(4) {
+    right: 10%;
+    bottom: 10%;
+
+    animation-delay: .45s;
+}
+
+.bomb-explosion span:nth-child(5) {
+    left: 45%;
+    top: 2%;
+
+    animation-delay: .6s;
+}
+
+.bomb-explosion span:nth-child(6) {
+    right: 45%;
+    bottom: 2%;
+
+    animation-delay: .75s;
+}
+
+@keyframes bombShake {
+
+    from {
+        transform: rotate(-8deg) scale(1);
+    }
+
+    to {
+        transform: rotate(8deg) scale(1.12);
+    }
+}
+
+@keyframes gameOverPopup {
+
     0% {
-        transform: scale(0.5);
-
-        opacity: 0.2;
+        transform: scale(0.1);
+        opacity: 0;
     }
 
-    40% {
-        transform: scale(1.35);
-
+    60% {
+        transform: scale(1.12);
         opacity: 1;
-    }
-
-    70% {
-        transform: scale(0.9);
     }
 
     100% {
@@ -628,136 +682,325 @@ button:active {
     }
 }
 
-.level-popup {
-    border: 5px solid #ffd45c;
+@keyframes gameOverText {
 
-    box-shadow:
-        0 0 40px rgba(255, 210, 70, 0.8);
-}
-
-
-/* =========================
-   BOMB GAME OVER
-========================= */
-
-.game-over-popup {
-    overflow: hidden;
-
-    border: 5px solid #ff5c5c;
-
-    box-shadow:
-        0 0 50px rgba(255, 70, 70, 0.75);
-}
-
-.bomb {
-    font-size: 70px;
-
-    animation:
-        bombShake 0.15s infinite;
-}
-
-@keyframes bombShake {
-    0% {
-        transform: rotate(-8deg);
-    }
-
-    50% {
-        transform: rotate(8deg);
-    }
-
-    100% {
-        transform: rotate(-8deg);
-    }
-}
-
-.explosion {
-    position: absolute;
-
-    inset: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 50px;
-
-    font-size: 55px;
-
-    pointer-events: none;
-
-    animation: explosionBlast 0.8s ease-out forwards;
-}
-
-.explosion span:nth-child(1) {
-    transform: translate(-150px, -100px);
-}
-
-.explosion span:nth-child(2) {
-    transform: translate(150px, -100px);
-}
-
-.explosion span:nth-child(3) {
-    transform: translate(-150px, 100px);
-}
-
-.explosion span:nth-child(4) {
-    transform: translate(150px, 100px);
-}
-
-@keyframes explosionBlast {
-    0% {
-        opacity: 0;
-
-        transform: scale(0.2);
-    }
-
-    25% {
-        opacity: 1;
-
-        transform: scale(1.4);
-    }
-
-    100% {
-        opacity: 0;
-
-        transform: scale(2);
-    }
-}
-
-
-/* =========================
-   WIN
-========================= */
-
-.win-popup {
-    border: 5px solid #ffd84d;
-
-    box-shadow:
-        0 0 60px rgba(255, 216, 77, 0.9);
-}
-
-.win-celebration {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    font-size: 45px;
-
-    animation: winBlast 1s infinite alternate;
-}
-
-@keyframes winBlast {
     from {
-        transform: scale(0.85);
+        transform: scale(1);
     }
 
     to {
-        transform: scale(1.15);
+        transform: scale(1.08);
     }
+}
+
+@keyframes explosionBlast {
+
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    40% {
+        transform: scale(1.8);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   FINAL GAME COMPLETE
+========================= */
+
+.win-popup {
+    position: relative;
+
+    overflow: hidden;
+
+    width: min(600px, 95vw);
+
+    padding: 35px 25px;
+
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7a8,
+            #ffd6f6,
+            #cce7ff,
+            #d8ffd0
+        );
+
+    box-shadow:
+        0 0 80px rgba(255, 255, 255, 1);
+
+    animation:
+        finalPopup 0.8s ease-out;
+}
+
+.final-trophy {
+    font-size: 100px;
+
+    animation:
+        trophyBounce 0.7s infinite alternate;
+}
+
+.win-popup h2 {
+    margin: 5px 0;
+
+    color: #ff4fa3;
+
+    font-size: clamp(30px, 7vw, 48px);
+
+    text-shadow:
+        2px 2px white;
+
+    animation:
+        finalTitlePulse 0.8s infinite alternate;
+}
+
+.win-popup h3 {
+    margin: 8px;
+
+    font-size: 27px;
+
+    color: #ff9f00;
+}
+
+.final-title {
+    font-size: 22px;
+
+    font-weight: bold;
+
+    color: #7c4dff;
+}
+
+.final-message {
+    font-size: 21px;
+
+    font-weight: bold;
+
+    line-height: 1.5;
+}
+
+.final-score-box {
+    padding: 10px;
+
+    margin: 15px 0;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255, 255, 255, 0.7);
+
+    font-size: 18px;
+}
+
+.final-fireworks span {
+    position: absolute;
+
+    font-size: 38px;
+
+    animation:
+        finalFirework 2s infinite;
+}
+
+.final-fireworks span:nth-child(1) {
+    left: 3%;
+    top: 5%;
+}
+
+.final-fireworks span:nth-child(2) {
+    right: 5%;
+    top: 10%;
+
+    animation-delay: .25s;
+}
+
+.final-fireworks span:nth-child(3) {
+    left: 8%;
+    bottom: 8%;
+
+    animation-delay: .5s;
+}
+
+.final-fireworks span:nth-child(4) {
+    right: 8%;
+    bottom: 12%;
+
+    animation-delay: .75s;
+}
+
+.final-fireworks span:nth-child(5) {
+    left: 30%;
+    top: 2%;
+
+    animation-delay: 1s;
+}
+
+.final-fireworks span:nth-child(6) {
+    right: 30%;
+    top: 2%;
+
+    animation-delay: 1.25s;
+}
+
+.final-fireworks span:nth-child(7) {
+    left: 20%;
+    top: 40%;
+
+    animation-delay: 1.5s;
+}
+
+.final-fireworks span:nth-child(8) {
+    right: 20%;
+    top: 40%;
+
+    animation-delay: 1.75s;
+}
+
+@keyframes finalPopup {
+
+    0% {
+        transform:
+            scale(0.1)
+            rotate(-15deg);
+
+        opacity: 0;
+    }
+
+    60% {
+        transform:
+            scale(1.12)
+            rotate(5deg);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            scale(1)
+            rotate(0);
+    }
+}
+
+@keyframes trophyBounce {
+
+    from {
+        transform:
+            scale(0.9)
+            rotate(-8deg);
+    }
+
+    to {
+        transform:
+            scale(1.15)
+            rotate(8deg);
+    }
+}
+
+@keyframes finalTitlePulse {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.07);
+    }
+}
+
+@keyframes finalFirework {
+
+    0% {
+        transform:
+            scale(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    25% {
+        transform:
+            scale(1.8)
+            rotate(90deg);
+
+        opacity: 1;
+    }
+
+    60% {
+        transform:
+            scale(0.8)
+            rotate(180deg);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            scale(1.7)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   PARTICLES
+========================= */
+
+.particle {
+    position: fixed;
+
+    pointer-events: none;
+
+    z-index: 10000;
+
+    font-size: 25px;
+
+    animation:
+        particleFly 1s ease-out forwards;
+}
+
+@keyframes particleFly {
+
+    0% {
+        transform:
+            translate(0, 0)
+            scale(1);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   PAUSED
+========================= */
+
+body.paused #gameArea {
+    filter: brightness(0.75);
+}
+
+body.paused #player {
+    animation: none;
 }
 
 
@@ -772,66 +1015,43 @@ button:active {
     }
 
     .info-bar {
-        gap: 5px;
-
-        padding: 8px;
+        font-size: 13px;
+        gap: 3px;
     }
 
     .info-bar div {
-        font-size: 13px;
-
-        padding: 6px 8px;
+        padding: 4px 5px;
     }
 
     #gameArea {
-        width: 98%;
+        height: 58vh;
+        min-height: 400px;
 
-        height: 65vh;
-
-        min-height: 420px;
-
-        border-width: 4px;
-
-        border-radius: 22px;
+        border-width: 3px;
+        border-radius: 20px;
     }
 
-    .mobile-controls button {
-        width: 100px;
-
-        height: 65px;
+    #player {
+        font-size: 50px;
     }
 
-    .popup {
-        padding: 25px 15px;
+    #star {
+        font-size: 38px;
     }
-}
 
+    .win-popup h2 {
+        font-size: 30px;
+    }
 
-/* =========================
-   FULLSCREEN
-========================= */
+    .final-trophy {
+        font-size: 75px;
+    }
 
-body.fullscreen-mode .game-container {
-    padding: 5px;
-}
+    .final-title {
+        font-size: 18px;
+    }
 
-body.fullscreen-mode #gameArea {
-    width: 99vw;
-
-    height: 78vh;
-
-    max-width: none;
-}
-
-
-/* =========================
-   PAUSED EFFECT
-========================= */
-
-body.game-paused #gameArea {
-    filter: brightness(0.75);
-}
-
-body.game-paused #player {
-    opacity: 0.7;
+    .final-message {
+        font-size: 17px;
+    }
 }

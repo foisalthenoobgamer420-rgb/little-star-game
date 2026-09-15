@@ -1,416 +1,542 @@
-// =========================================
-// LITTLE STAR CATCH ⭐
-// FULL GAME JAVASCRIPT
-// =========================================
+// =====================================================
+// LITTLE STAR GAME ⭐
+// FULL VERSION
+// 10 LEVELS + 60 SEC + 5 LIVES
+// MUSIC + SOUND + PAUSE + MOBILE + BOOST
+// =====================================================
 
 
-// =========================================
-// DOM
-// =========================================
+// =====================================================
+// HTML ELEMENTS
+// =====================================================
 
-const gameArea =
-    document.getElementById("gameArea");
+const gameArea = document.getElementById("gameArea");
 
-const player =
-    document.getElementById("player");
+const player = document.getElementById("player");
 
-const star =
-    document.getElementById("star");
+const star = document.getElementById("star");
+const coin = document.getElementById("coin");
+const heart = document.getElementById("heart");
+const boost = document.getElementById("boost");
 
-const coin =
-    document.getElementById("coin");
+const scoreText = document.getElementById("score");
+const coinsText = document.getElementById("coins");
+const livesText = document.getElementById("lives");
+const levelText = document.getElementById("level");
+const timeText = document.getElementById("time");
+const highScoreText = document.getElementById("highScore");
 
-const heart =
-    document.getElementById("heart");
+const powerStatus = document.getElementById("powerStatus");
 
-const boost =
-    document.getElementById("boost");
+const startButton = document.getElementById("startButton");
+const pauseButton = document.getElementById("pauseButton");
 
-const particles =
-    document.getElementById("particles");
+const leftButton = document.getElementById("leftButton");
+const rightButton = document.getElementById("rightButton");
 
-const effectLayer =
-    document.getElementById("effectLayer");
-
-
-// INFO
-
-const scoreText =
-    document.getElementById("score");
-
-const coinsText =
-    document.getElementById("coins");
-
-const livesText =
-    document.getElementById("lives");
-
-const levelText =
-    document.getElementById("level");
-
-const timeText =
-    document.getElementById("time");
-
-const highScoreText =
-    document.getElementById("highScore");
-
-
-// BUTTONS
-
-const startButton =
-    document.getElementById("startButton");
-
-const pauseButton =
-    document.getElementById("pauseButton");
+const musicButton = document.getElementById("musicButton");
+const musicStatus = document.getElementById("musicStatus");
 
 const fullscreenButton =
     document.getElementById("fullscreenButton");
 
-const exitFullscreenButton =
-    document.getElementById(
-        "exitFullscreenButton"
-    );
+const backgroundMusic =
+    document.getElementById("backgroundMusic");
 
-const musicButton =
-    document.getElementById("musicButton");
-
-const leftButton =
-    document.getElementById("leftButton");
-
-const rightButton =
-    document.getElementById("rightButton");
+const particles =
+    document.getElementById("particles");
 
 
+// =====================================================
 // SCREENS
-
-const levelCompleteScreen =
-    document.getElementById(
-        "levelCompleteScreen"
-    );
+// =====================================================
 
 const gameOverScreen =
-    document.getElementById(
-        "gameOverScreen"
-    );
+    document.getElementById("gameOverScreen");
+
+const levelCompleteScreen =
+    document.getElementById("levelCompleteScreen");
 
 const winScreen =
     document.getElementById("winScreen");
 
-
-// LEVEL
-
-const completedLevel =
-    document.getElementById(
-        "completedLevel"
-    );
-
-const levelMessage =
-    document.getElementById(
-        "levelMessage"
-    );
-
-const nextLevelButton =
-    document.getElementById(
-        "nextLevelButton"
-    );
-
-
-// GAME OVER
-
 const finalScore =
-    document.getElementById(
-        "finalScore"
-    );
+    document.getElementById("finalScore");
 
 const gameOverHighScore =
-    document.getElementById(
-        "gameOverHighScore"
-    );
+    document.getElementById("gameOverHighScore");
 
-const restartButton =
-    document.getElementById(
-        "restartButton"
-    );
+const completedLevel =
+    document.getElementById("completedLevel");
 
-
-// WIN
+const levelMessage =
+    document.getElementById("levelMessage");
 
 const winScore =
-    document.getElementById(
-        "winScore"
-    );
+    document.getElementById("winScore");
 
 const winHighScore =
-    document.getElementById(
-        "winHighScore"
-    );
+    document.getElementById("winHighScore");
+
+const restartButton =
+    document.getElementById("restartButton");
+
+const nextLevelButton =
+    document.getElementById("nextLevelButton");
 
 const winRestartButton =
-    document.getElementById(
-        "winRestartButton"
-    );
+    document.getElementById("winRestartButton");
 
 
-// MUSIC
-
-const backgroundMusic =
-    document.getElementById(
-        "backgroundMusic"
-    );
-
-const musicStatus =
-    document.getElementById(
-        "musicStatus"
-    );
-
-const powerStatus =
-    document.getElementById(
-        "powerStatus"
-    );
-
-
-// =========================================
-// GAME SETTINGS
-// =========================================
-
-const NORMAL_SPEED = 150;
-
-const BOOST_SPEED = 300;
-
-const MAX_LEVEL = 10;
-
-const START_LIVES = 5;
-
-const START_TIME = 60;
-
-
-// =========================================
-// GAME STATE
-// =========================================
+// =====================================================
+// GAME VARIABLES
+// =====================================================
 
 let score = 0;
 
 let coins = 0;
 
-let lives = START_LIVES;
+let lives = 5;
 
 let level = 1;
 
-let timeLeft = START_TIME;
+const maxLevel = 10;
 
-let starsCaught = 0;
+let starsCollected = 0;
+
+let starsNeeded = level * 5;
+
+let timeLeft = 60;
+
+
+// =====================================================
+// PLAYER
+// =====================================================
+
+let playerX = 50;
+
+
+// =====================================================
+// FALLING OBJECTS
+// =====================================================
+
+let starX = 50;
+let starY = -60;
+
+let coinX = 50;
+let coinY = -100;
+
+let heartX = 50;
+let heartY = -150;
+
+let boostX = 50;
+let boostY = -200;
+
+
+// =====================================================
+// GAME STATE
+// =====================================================
 
 let gameRunning = false;
 
 let gamePaused = false;
 
-let leftPressed = false;
-
-let rightPressed = false;
-
-let playerX = 50;
-
-let boostActive = false;
-
-let boostTimeout = null;
+let animationId = null;
 
 let timerInterval = null;
 
-let animationId = null;
+
+// =====================================================
+// SPEED
+// =====================================================
+
+let starSpeed = 180;
+
+
+// =====================================================
+// BOOST
+// =====================================================
+
+let boostActive = false;
+
+let boostEndTime = 0;
+
+
+// =====================================================
+// KEY STATE
+// =====================================================
+
+const keys = {
+    left: false,
+    right: false
+};
+
+
+// =====================================================
+// HIGH SCORE
+// =====================================================
+
+let highScore =
+    Number(
+        localStorage.getItem("littleStarHighScore")
+    ) || 0;
+
+highScoreText.textContent = highScore;
+
+
+// =====================================================
+// MUSIC
+// =====================================================
 
 let musicOn = true;
 
 
-// OBJECT POSITIONS
-
-let starX = 50;
-let starY = -60;
-
-let coinX = 30;
-let coinY = -60;
-
-let heartX = 70;
-let heartY = -60;
-
-let boostX = 50;
-let boostY = -60;
-
-
-// OBJECT SPEED
-
-let starSpeed = 2.5;
-
-let coinSpeed = 2.2;
-
-let heartSpeed = 1.8;
-
-let boostSpeed = 2;
-
-
-// =========================================
-// HIGH SCORE
-// =========================================
-
-let highScore =
-    Number(
-        localStorage.getItem(
-            "littleStarHighScore"
-        )
-    ) || 0;
-
-highScoreText.textContent =
-    highScore;
-
-
-// =========================================
+// =====================================================
 // AUDIO
-// =========================================
+// =====================================================
 
 let audioContext = null;
 
 
+// =====================================================
+// AUDIO INITIALIZATION
+// =====================================================
+
 function initAudio() {
 
-    if (!audioContext) {
+    if (audioContext) {
+
+        if (
+            audioContext.state === "suspended"
+        ) {
+
+            audioContext.resume()
+                .catch(() => {});
+
+        }
+
+        return;
+    }
+
+    const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+    if (!AudioContext) return;
+
+    try {
 
         audioContext =
-            new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
+            new AudioContext();
 
-    }
+        if (
+            audioContext.state === "suspended"
+        ) {
 
-    if (
-        audioContext.state ===
-        "suspended"
-    ) {
-
-        audioContext.resume();
-
-    }
-}
-
-
-function sound(
-    frequency,
-    duration = 0.12,
-    type = "sine"
-) {
-
-    try {
-
-        initAudio();
-
-        const oscillator =
-            audioContext.createOscillator();
-
-        const gain =
-            audioContext.createGain();
-
-        oscillator.type = type;
-
-        oscillator.frequency.value =
-            frequency;
-
-        gain.gain.setValueAtTime(
-            0.12,
-            audioContext.currentTime
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.001,
-            audioContext.currentTime +
-            duration
-        );
-
-        oscillator.connect(gain);
-
-        gain.connect(
-            audioContext.destination
-        );
-
-        oscillator.start();
-
-        oscillator.stop(
-            audioContext.currentTime +
-            duration
-        );
-
-    } catch (error) {
-
-        console.log(
-            "Sound unavailable"
-        );
-
-    }
-}
-
-
-function playStarSound() {
-
-    sound(880, 0.12, "sine");
-
-}
-
-
-function playCoinSound() {
-
-    sound(1200, 0.1, "square");
-
-}
-
-
-function playHeartSound() {
-
-    sound(600, 0.2, "sine");
-
-}
-
-
-function playBoostSound() {
-
-    sound(300, 0.25, "sawtooth");
-
-}
-
-
-// =========================================
-// MUSIC
-// =========================================
-
-function startMusic() {
-
-    if (!musicOn) return;
-
-    try {
-
-        backgroundMusic.volume = 0.35;
-
-        const promise =
-            backgroundMusic.play();
-
-        if (promise) {
-
-            promise.catch(() => {
-
-                musicStatus.textContent =
-                    "🎵 Click Start Game to play music";
-
-            });
+            audioContext.resume()
+                .catch(() => {});
 
         }
 
     } catch (error) {
 
         console.log(
-            "Music unavailable"
+            "Audio unavailable"
         );
 
     }
 }
 
 
+// =====================================================
+// SOUND EFFECTS
+// =====================================================
+
+function playSound(type) {
+
+    initAudio();
+
+    if (!audioContext) return;
+
+    const oscillator =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+    oscillator.connect(gain);
+
+    gain.connect(
+        audioContext.destination
+    );
+
+    const now =
+        audioContext.currentTime;
+
+
+    // STAR
+    if (type === "star") {
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            700,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            1200,
+            now + 0.12
+        );
+
+        gain.gain.setValueAtTime(
+            0.15,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            now + 0.18
+        );
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + 0.18
+        );
+    }
+
+
+    // COIN
+    else if (type === "coin") {
+
+        oscillator.type = "triangle";
+
+        oscillator.frequency.setValueAtTime(
+            900,
+            now
+        );
+
+        oscillator.frequency.setValueAtTime(
+            1300,
+            now + 0.08
+        );
+
+        gain.gain.setValueAtTime(
+            0.16,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            now + 0.2
+        );
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + 0.2
+        );
+    }
+
+
+    // HEART
+    else if (type === "heart") {
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            500,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            900,
+            now + 0.15
+        );
+
+        gain.gain.setValueAtTime(
+            0.16,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            now + 0.25
+        );
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + 0.25
+        );
+    }
+
+
+    // BOOST
+    else if (type === "boost") {
+
+        oscillator.type = "square";
+
+        oscillator.frequency.setValueAtTime(
+            300,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            1000,
+            now + 0.3
+        );
+
+        gain.gain.setValueAtTime(
+            0.12,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            now + 0.35
+        );
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + 0.35
+        );
+    }
+
+
+    // MISS
+    else if (type === "miss") {
+
+        oscillator.type = "sawtooth";
+
+        oscillator.frequency.setValueAtTime(
+            250,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            80,
+            now + 0.25
+        );
+
+        gain.gain.setValueAtTime(
+            0.12,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            now + 0.25
+        );
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + 0.25
+        );
+    }
+
+
+    // LOSE
+    else if (type === "lose") {
+
+        oscillator.type = "sawtooth";
+
+        oscillator.frequency.setValueAtTime(
+            350,
+            now
+        );
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            50,
+            now + 0.8
+        );
+
+        gain.gain.setValueAtTime(
+            0.2,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            now + 0.8
+        );
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + 0.8
+        );
+    }
+
+
+    // WIN
+    else if (type === "win") {
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(
+            500,
+            now
+        );
+
+        oscillator.frequency.setValueAtTime(
+            700,
+            now + 0.15
+        );
+
+        oscillator.frequency.setValueAtTime(
+            900,
+            now + 0.3
+        );
+
+        oscillator.frequency.setValueAtTime(
+            1200,
+            now + 0.45
+        );
+
+        gain.gain.setValueAtTime(
+            0.18,
+            now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.01,
+            now + 0.7
+        );
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + 0.7
+        );
+    }
+}
+
+
+// =====================================================
+// MUSIC
+// =====================================================
+
+function startMusic() {
+
+    if (!musicOn) return;
+
+    if (!backgroundMusic) return;
+
+    backgroundMusic.volume = 0.35;
+
+    backgroundMusic.play()
+        .catch(() => {});
+
+}
+
+
 function stopMusic() {
+
+    if (!backgroundMusic) return;
 
     backgroundMusic.pause();
 
@@ -419,14 +545,19 @@ function stopMusic() {
 
 function toggleMusic() {
 
+    initAudio();
+
     musicOn = !musicOn;
 
     if (musicOn) {
 
         musicButton.textContent =
-            "🔊 Music ON";
+            "🎵 Music ON";
 
-        if (gameRunning) {
+        musicStatus.textContent =
+            "Music ON";
+
+        if (gameRunning && !gamePaused) {
 
             startMusic();
 
@@ -437,312 +568,78 @@ function toggleMusic() {
         musicButton.textContent =
             "🔇 Music OFF";
 
+        musicStatus.textContent =
+            "Music OFF";
+
         stopMusic();
 
     }
-
 }
 
 
-// =========================================
-// UI
-// =========================================
-
-function updateUI() {
-
-    scoreText.textContent =
-        score;
-
-    coinsText.textContent =
-        coins;
-
-    livesText.textContent =
-        lives;
-
-    levelText.textContent =
-        level;
-
-    timeText.textContent =
-        timeLeft;
-
-    highScoreText.textContent =
-        highScore;
-
-}
-
-
-// =========================================
-// RESET
-// =========================================
-
-function resetGame() {
-
-    score = 0;
-
-    coins = 0;
-
-    lives = START_LIVES;
-
-    level = 1;
-
-    timeLeft = START_TIME;
-
-    starsCaught = 0;
-
-    playerX = 50;
-
-    boostActive = false;
-
-    leftPressed = false;
-
-    rightPressed = false;
-
-    clearInterval(timerInterval);
-
-    cancelAnimationFrame(
-        animationId
-    );
-
-    clearTimeout(
-        boostTimeout
-    );
-
-    star.style.display = "none";
-
-    coin.style.display = "none";
-
-    heart.style.display = "none";
-
-    boost.style.display = "none";
-
-    player.style.left =
-        "50%";
-
-    powerStatus.textContent =
-        "";
-
-    effectLayer.innerHTML =
-        "";
-
-    particles.innerHTML =
-        "";
-
-    updateUI();
-
-}
-
-
-// =========================================
-// START GAME
-// =========================================
-
-function startGame() {
-
-    resetGame();
-
-    gameRunning = true;
-
-    gamePaused = false;
-
-    levelCompleteScreen.style.display =
-        "none";
-
-    gameOverScreen.style.display =
-        "none";
-
-    winScreen.style.display =
-        "none";
-
-    startButton.style.display =
-        "none";
-
-    pauseButton.style.display =
-        "inline-block";
-
-    pauseButton.textContent =
-        "⏸️ Pause";
-
-    initAudio();
-
-    startMusic();
-
-    startTimer();
-
-    animationId =
-        requestAnimationFrame(
-            gameLoop
-        );
-
-}
-
-
-// =========================================
-// TIMER
-// =========================================
-
-function startTimer() {
-
-    clearInterval(timerInterval);
-
-    timerInterval =
-        setInterval(() => {
-
-            if (
-                !gameRunning ||
-                gamePaused
-            ) {
-                return;
-            }
-
-            timeLeft--;
-
-            updateUI();
-
-            if (timeLeft <= 0) {
-
-                timeLeft = 0;
-
-                updateUI();
-
-                if (
-                    starsCaught >=
-                    starsNeeded()
-                ) {
-
-                    completeLevel();
-
-                } else {
-
-                    gameOver();
-
-                }
-
-            }
-
-        }, 1000);
-
-}
-
-
-// =========================================
-// LEVEL TARGET
-// =========================================
-
-function starsNeeded() {
-
-    return level * 5;
-
-}
-
-
-// =========================================
-// PLAYER MOVEMENT
-// =========================================
-
-function updatePlayer(delta) {
-
-    if (
-        !gameRunning ||
-        gamePaused
-    ) {
-        return;
-    }
-
-
-    // ⭐ NORMAL = 150
-    // ⚡ BOOST = 300
-
-    const speed =
-        boostActive
-            ? BOOST_SPEED
-            : NORMAL_SPEED;
-
-
-    const movement =
-        speed *
-        delta /
-        60;
-
-
-    if (leftPressed) {
-
-        playerX -= movement;
-
-    }
-
-
-    if (rightPressed) {
-
-        playerX += movement;
-
-    }
-
-
-    playerX =
-        Math.max(
-            6,
-            Math.min(
-                94,
-                playerX
-            )
-        );
-
-
-    player.style.left =
-        playerX + "%";
-
-}
-
-
-// =========================================
-// RANDOM POSITION
-// =========================================
+// =====================================================
+// RANDOM X
+// =====================================================
 
 function randomX() {
 
     return (
-        8 +
-        Math.random() * 84
+        Math.random() * 88 + 6
     );
 
 }
 
 
-// =========================================
-// SPAWN STAR
-// =========================================
+// =====================================================
+// PLACE ITEM
+// =====================================================
 
-function spawnStar() {
+function placeItem(
+    item,
+    x,
+    y
+) {
 
-    starX = randomX();
+    item.style.left =
+        x + "%";
 
-    starY = -60;
+    item.style.top =
+        y + "px";
 
-    starSpeed =
-        2.5 +
-        level * 0.25;
-
-    star.style.left =
-        starX + "%";
-
-    star.style.top =
-        starY + "px";
-
-    star.style.display =
+    item.style.display =
         "block";
 
 }
 
 
-// =========================================
-// SPAWN COIN
-// =========================================
+// =====================================================
+// RESET STAR
+// =====================================================
 
-function spawnCoin() {
+function resetStar() {
+
+    starX = randomX();
+
+    starY = -60;
+
+    placeItem(
+        star,
+        starX,
+        starY
+    );
+
+}
+
+
+// =====================================================
+// RESET COIN
+// =====================================================
+
+function resetCoin() {
 
     coinX = randomX();
 
-    coinY = -60;
+    coinY = -100;
 
     coin.style.left =
         coinX + "%";
@@ -750,21 +647,18 @@ function spawnCoin() {
     coin.style.top =
         coinY + "px";
 
-    coin.style.display =
-        "block";
-
 }
 
 
-// =========================================
-// SPAWN HEART
-// =========================================
+// =====================================================
+// RESET HEART
+// =====================================================
 
-function spawnHeart() {
+function resetHeart() {
 
     heartX = randomX();
 
-    heartY = -60;
+    heartY = -150;
 
     heart.style.left =
         heartX + "%";
@@ -772,21 +666,18 @@ function spawnHeart() {
     heart.style.top =
         heartY + "px";
 
-    heart.style.display =
-        "block";
-
 }
 
 
-// =========================================
-// SPAWN BOOST
-// =========================================
+// =====================================================
+// RESET BOOST
+// =====================================================
 
-function spawnBoost() {
+function resetBoost() {
 
     boostX = randomX();
 
-    boostY = -60;
+    boostY = -200;
 
     boost.style.left =
         boostX + "%";
@@ -794,158 +685,621 @@ function spawnBoost() {
     boost.style.top =
         boostY + "px";
 
+}
+
+
+// =====================================================
+// HIDE OPTIONAL ITEMS
+// =====================================================
+
+function hideOptionalItems() {
+
+    coin.style.display =
+        "none";
+
+    heart.style.display =
+        "none";
+
     boost.style.display =
-        "block";
+        "none";
 
 }
 
 
-// =========================================
+// =====================================================
 // COLLISION
-// =========================================
+// =====================================================
 
-function isColliding(object) {
+function isColliding(item) {
+
+    if (
+        item.style.display ===
+        "none"
+    ) {
+
+        return false;
+
+    }
 
     const playerRect =
         player.getBoundingClientRect();
 
-    const objectRect =
-        object.getBoundingClientRect();
+    const itemRect =
+        item.getBoundingClientRect();
 
+    return (
 
-    return !(
-        playerRect.right <
-        objectRect.left +
+        itemRect.bottom >=
+        playerRect.top &&
 
-        5 ||
+        itemRect.top <=
+        playerRect.bottom &&
 
-        playerRect.left >
-        objectRect.right -
+        itemRect.left <
+        playerRect.right &&
 
-        5 ||
+        itemRect.right >
+        playerRect.left
 
-        playerRect.bottom <
-        objectRect.top +
-
-        5 ||
-
-        playerRect.top >
-        objectRect.bottom -
-
-        5
     );
 
 }
 
 
-// =========================================
-// PARTICLES
-// =========================================
+// =====================================================
+// PARTICLE BLAST
+// =====================================================
 
 function createParticles(
-    x,
-    y,
-    emoji = "✨"
+    source,
+    emojis
 ) {
 
-    for (
-        let i = 0;
-        i < 8;
-        i++
-    ) {
+    const sourceRect =
+        source.getBoundingClientRect();
 
-        const particle =
-            document.createElement(
-                "div"
+    const areaRect =
+        gameArea.getBoundingClientRect();
+
+    const centerX =
+        sourceRect.left -
+        areaRect.left +
+        sourceRect.width / 2;
+
+    const centerY =
+        sourceRect.top -
+        areaRect.top +
+        sourceRect.height / 2;
+
+
+    emojis.forEach(
+        (emoji) => {
+
+            const particle =
+                document.createElement(
+                    "div"
+                );
+
+            particle.className =
+                "particle";
+
+            particle.textContent =
+                emoji;
+
+            particle.style.left =
+                centerX + "px";
+
+            particle.style.top =
+                centerY + "px";
+
+
+            const angle =
+                Math.random() *
+                Math.PI *
+                2;
+
+            const distance =
+                50 +
+                Math.random() *
+                100;
+
+
+            particle.style.setProperty(
+                "--dx",
+                Math.cos(angle) *
+                    distance +
+                    "px"
             );
 
-        particle.textContent =
-            emoji;
-
-        particle.style.position =
-            "absolute";
-
-        particle.style.left =
-            x + "px";
-
-        particle.style.top =
-            y + "px";
-
-        particle.style.fontSize =
-            "20px";
-
-        particle.style.pointerEvents =
-            "none";
-
-        particle.style.transition =
-            "all 0.7s ease-out";
-
-        particles.appendChild(
-            particle
-        );
+            particle.style.setProperty(
+                "--dy",
+                Math.sin(angle) *
+                    distance +
+                    "px"
+            );
 
 
-        const angle =
-            Math.random() *
-            Math.PI * 2;
-
-        const distance =
-            40 +
-            Math.random() * 50;
+            particles.appendChild(
+                particle
+            );
 
 
-        requestAnimationFrame(() => {
+            setTimeout(
+                () => {
 
-            particle.style.transform =
-                `translate(
-                    ${Math.cos(angle) * distance}px,
-                    ${Math.sin(angle) * distance}px
-                )`;
+                    particle.remove();
 
-            particle.style.opacity =
-                "0";
+                },
+                900
+            );
 
-        });
+        }
+    );
+
+}
 
 
-        setTimeout(() => {
+// =====================================================
+// UPDATE PLAYER
+// =====================================================
 
-            particle.remove();
+function updatePlayer(deltaTime) {
 
-        }, 750);
+    if (
+        !gameRunning ||
+        gamePaused
+    ) {
+
+        return;
+
+    }
+
+
+    // NORMAL = 150
+    // BOOST = 300
+
+    const speed =
+        boostActive
+            ? 300
+            : 150;
+
+
+    if (keys.left) {
+
+        playerX -=
+            speed *
+            deltaTime;
+
+    }
+
+
+    if (keys.right) {
+
+        playerX +=
+            speed *
+            deltaTime;
+
+    }
+
+
+    if (playerX < 6) {
+
+        playerX = 6;
+
+    }
+
+
+    if (playerX > 94) {
+
+        playerX = 94;
+
+    }
+
+
+    player.style.left =
+        playerX + "%";
+
+
+    // BOOST TIMER
+
+    if (
+        boostActive &&
+        performance.now() >
+            boostEndTime
+    ) {
+
+        boostActive =
+            false;
+
+        powerStatus.textContent =
+            "";
 
     }
 
 }
 
 
-// =========================================
-// CATCH STAR
-// =========================================
+// =====================================================
+// UPDATE STAR
+// =====================================================
 
-function catchStar() {
+function updateStar(deltaTime) {
 
-    score += 10;
+    if (
+        !gameRunning ||
+        gamePaused
+    ) {
 
-    starsCaught++;
+        return;
 
-    playStarSound();
+    }
 
-    createParticles(
-        star.offsetLeft,
-        star.offsetTop,
-        "✨"
-    );
 
-    star.style.display =
-        "none";
+    starY +=
+        starSpeed *
+        deltaTime;
 
-    updateUI();
+
+    star.style.top =
+        starY + "px";
+
+
+    // CATCH
+
+    if (
+        isColliding(star)
+    ) {
+
+        score++;
+
+        starsCollected++;
+
+        playSound("star");
+
+        createParticles(
+            star,
+            [
+                "✨",
+                "⭐",
+                "💫"
+            ]
+        );
+
+        resetStar();
+
+        updateHighScore();
+
+        checkLevelProgress();
+
+        updateUI();
+
+        return;
+
+    }
+
+
+    // MISS
+
+    if (
+        starY >
+        gameArea.clientHeight +
+        60
+    ) {
+
+        lives--;
+
+        playSound("miss");
+
+        createParticles(
+            star,
+            [
+                "💔",
+                "😢"
+            ]
+        );
+
+        resetStar();
+
+        updateUI();
+
+
+        if (lives <= 0) {
+
+            endGame();
+
+        }
+
+    }
+
+}
+
+
+// =====================================================
+// UPDATE COIN
+// =====================================================
+
+function updateCoin(deltaTime) {
+
+    if (
+        !gameRunning ||
+        gamePaused
+    ) {
+
+        return;
+
+    }
+
+
+    // Random spawn
+
+    if (
+        coin.style.display ===
+            "none" &&
+        Math.random() < 0.008
+    ) {
+
+        resetCoin();
+
+    }
 
 
     if (
-        starsCaught >=
-        starsNeeded()
+        coin.style.display ===
+        "none"
+    ) {
+
+        return;
+
+    }
+
+
+    coinY +=
+        (starSpeed * 0.85) *
+        deltaTime;
+
+
+    coin.style.top =
+        coinY + "px";
+
+
+    if (
+        isColliding(coin)
+    ) {
+
+        coins++;
+
+        score += 2;
+
+        playSound("coin");
+
+        createParticles(
+            coin,
+            [
+                "🪙",
+                "✨",
+                "💰"
+            ]
+        );
+
+        coin.style.display =
+            "none";
+
+        updateHighScore();
+
+        updateUI();
+
+        return;
+
+    }
+
+
+    if (
+        coinY >
+        gameArea.clientHeight +
+        50
+    ) {
+
+        coin.style.display =
+            "none";
+
+    }
+
+}
+
+
+// =====================================================
+// UPDATE HEART
+// =====================================================
+
+function updateHeart(deltaTime) {
+
+    if (
+        !gameRunning ||
+        gamePaused
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        heart.style.display ===
+            "none" &&
+        Math.random() < 0.0025
+    ) {
+
+        resetHeart();
+
+    }
+
+
+    if (
+        heart.style.display ===
+        "none"
+    ) {
+
+        return;
+
+    }
+
+
+    heartY +=
+        (starSpeed * 0.75) *
+        deltaTime;
+
+
+    heart.style.top =
+        heartY + "px";
+
+
+    if (
+        isColliding(heart)
+    ) {
+
+        if (lives < 5) {
+
+            lives++;
+
+        }
+
+        playSound("heart");
+
+        createParticles(
+            heart,
+            [
+                "❤️",
+                "💖",
+                "💕"
+            ]
+        );
+
+        heart.style.display =
+            "none";
+
+        updateUI();
+
+        return;
+
+    }
+
+
+    if (
+        heartY >
+        gameArea.clientHeight +
+        50
+    ) {
+
+        heart.style.display =
+            "none";
+
+    }
+
+}
+
+
+// =====================================================
+// UPDATE BOOST
+// =====================================================
+
+function updateBoost(deltaTime) {
+
+    if (
+        !gameRunning ||
+        gamePaused
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        boost.style.display ===
+            "none" &&
+        Math.random() < 0.002
+    ) {
+
+        resetBoost();
+
+    }
+
+
+    if (
+        boost.style.display ===
+        "none"
+    ) {
+
+        return;
+
+    }
+
+
+    boostY +=
+        (starSpeed * 0.9) *
+        deltaTime;
+
+
+    boost.style.top =
+        boostY + "px";
+
+
+    if (
+        isColliding(boost)
+    ) {
+
+        boostActive =
+            true;
+
+        boostEndTime =
+            performance.now() +
+            5000;
+
+        playSound("boost");
+
+        powerStatus.textContent =
+            "⚡ SPEED BOOST! 5 seconds!";
+
+        createParticles(
+            boost,
+            [
+                "⚡",
+                "🔥",
+                "💨"
+            ]
+        );
+
+        boost.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    if (
+        boostY >
+        gameArea.clientHeight +
+        50
+    ) {
+
+        boost.style.display =
+            "none";
+
+    }
+
+}
+
+
+// =====================================================
+// LEVEL PROGRESS
+// =====================================================
+
+function checkLevelProgress() {
+
+    if (
+        starsCollected >=
+        starsNeeded
     ) {
 
         completeLevel();
@@ -955,229 +1309,32 @@ function catchStar() {
 }
 
 
-// =========================================
-// CATCH COIN
-// =========================================
-
-function catchCoin() {
-
-    score += 5;
-
-    coins++;
-
-    playCoinSound();
-
-    createParticles(
-        coin.offsetLeft,
-        coin.offsetTop,
-        "🪙"
-    );
-
-    coin.style.display =
-        "none";
-
-    updateUI();
-
-}
-
-
-// =========================================
-// CATCH HEART
-// =========================================
-
-function catchHeart() {
-
-    if (lives < START_LIVES) {
-
-        lives++;
-
-    }
-
-    playHeartSound();
-
-    createParticles(
-        heart.offsetLeft,
-        heart.offsetTop,
-        "❤️"
-    );
-
-    heart.style.display =
-        "none";
-
-    updateUI();
-
-}
-
-
-// =========================================
-// CATCH BOOST
-// =========================================
-
-function catchBoost() {
-
-    boostActive = true;
-
-    playBoostSound();
-
-    powerStatus.textContent =
-        "⚡ SPEED BOOST ACTIVE!";
-
-    boost.style.display =
-        "none";
-
-
-    clearTimeout(
-        boostTimeout
-    );
-
-
-    boostTimeout =
-        setTimeout(() => {
-
-            boostActive = false;
-
-            powerStatus.textContent =
-                "";
-
-        }, 6000);
-
-}
-
-
-// =========================================
-// LEVEL COMPLETE CELEBRATION
-// =========================================
-
-function celebrationBlast() {
-
-    effectLayer.innerHTML =
-        "";
-
-
-    const emojis = [
-        "🎉",
-        "🎊",
-        "✨",
-        "⭐",
-        "💖",
-        "🥳",
-        "🌟",
-        "🎈"
-    ];
-
-
-    for (
-        let i = 0;
-        i < 35;
-        i++
-    ) {
-
-        const emoji =
-            document.createElement(
-                "div"
-            );
-
-        emoji.className =
-            "effect-emoji";
-
-        emoji.textContent =
-            emojis[
-                Math.floor(
-                    Math.random() *
-                    emojis.length
-                )
-            ];
-
-
-        const angle =
-            Math.random() *
-            Math.PI * 2;
-
-
-        const distance =
-            130 +
-            Math.random() * 320;
-
-
-        const x =
-            Math.cos(angle) *
-            distance;
-
-
-        const y =
-            Math.sin(angle) *
-            distance;
-
-
-        emoji.style.setProperty(
-            "--x",
-            `${x}px`
-        );
-
-        emoji.style.setProperty(
-            "--y",
-            `${y}px`
-        );
-
-        emoji.style.setProperty(
-            "--rotate",
-            `${Math.random() * 720 - 360}deg`
-        );
-
-
-        emoji.style.animationDelay =
-            `${Math.random() * 0.25}s`;
-
-
-        effectLayer.appendChild(
-            emoji
-        );
-
-    }
-
-
-    sound(
-        900,
-        0.15,
-        "sine"
-    );
-
-    setTimeout(() => {
-
-        sound(
-            1200,
-            0.25,
-            "sine"
-        );
-
-    }, 150);
-
-
-    setTimeout(() => {
-
-        effectLayer.innerHTML =
-            "";
-
-    }, 1800);
-
-}
-
-
-// =========================================
+// =====================================================
 // COMPLETE LEVEL
-// =========================================
+// =====================================================
 
 function completeLevel() {
 
-    if (
-        !gameRunning ||
-        gamePaused
-    ) {
-        return;
-    }
+    gameRunning =
+        false;
 
+    gamePaused =
+        false;
 
-    gamePaused = true;
+    cancelAnimationFrame(
+        animationId
+    );
+
+    clearInterval(
+        timerInterval
+    );
+
+    stopMusic();
+
+    playSound("win");
+
+    pauseButton.style.display =
+        "none";
 
     star.style.display =
         "none";
@@ -1196,53 +1353,44 @@ function completeLevel() {
         level;
 
 
-    if (
-        level >= MAX_LEVEL
-    ) {
+    if (level < maxLevel) {
 
-        celebrationBlast();
+        levelMessage.textContent =
+            "Get ready! The next level is faster! 🚀";
 
+        nextLevelButton.textContent =
+            "🚀 Next Level";
 
-        setTimeout(() => {
+    } else {
 
-            winGame();
+        levelMessage.textContent =
+            "One more step and you will become the Star Master! 👑";
 
-        }, 1300);
-
-
-        return;
+        nextLevelButton.textContent =
+            "🏆 Finish Game";
 
     }
 
 
-    levelMessage.textContent =
-        `Great job! ${starsNeeded()} stars collected. Get ready for Level ${level + 1}! ⭐`;
-
-
-    celebrationBlast();
-
-
-    setTimeout(() => {
-
-        levelCompleteScreen.style.display =
-            "flex";
-
-    }, 900);
+    levelCompleteScreen.style.display =
+        "flex";
 
 }
 
 
-// =========================================
+// =====================================================
 // NEXT LEVEL
-// =========================================
+// =====================================================
 
 function nextLevel() {
 
-    if (
-        level >= MAX_LEVEL
-    ) {
+    levelCompleteScreen.style.display =
+        "none";
 
-        winGame();
+
+    if (level >= maxLevel) {
+
+        showWin();
 
         return;
 
@@ -1251,28 +1399,57 @@ function nextLevel() {
 
     level++;
 
-    starsCaught = 0;
+    starsNeeded =
+        level * 5;
 
-    timeLeft = START_TIME;
+    starsCollected =
+        0;
 
-    gamePaused = false;
+    timeLeft =
+        60;
+
+    starSpeed =
+        180 +
+        (level - 1) *
+        15;
 
 
-    levelCompleteScreen.style.display =
-        "none";
+    gameRunning =
+        true;
+
+    gamePaused =
+        false;
 
 
-    powerStatus.textContent =
-        "";
+    playerX =
+        50;
 
+
+    player.style.left =
+        playerX + "%";
+
+
+    resetStar();
+
+    hideOptionalItems();
 
     updateUI();
 
 
+    pauseButton.style.display =
+        "inline-block";
+
+    pauseButton.textContent =
+        "⏸️ Pause";
+
+
+    lastTime =
+        performance.now();
+
+
+    startMusic();
+
     startTimer();
-
-
-    spawnStar();
 
 
     animationId =
@@ -1283,178 +1460,35 @@ function nextLevel() {
 }
 
 
-// =========================================
-// BOMB BLAST
-// =========================================
-
-function bombBlast() {
-
-    effectLayer.innerHTML =
-        "";
-
-
-    // 💣 BOMB
-
-    const bomb =
-        document.createElement(
-            "div"
-        );
-
-    bomb.className =
-        "bomb-effect";
-
-    bomb.textContent =
-        "💣";
-
-    effectLayer.appendChild(
-        bomb
-    );
-
-
-    // 💥 EXPLOSION
-
-    setTimeout(() => {
-
-        const flash =
-            document.createElement(
-                "div"
-            );
-
-        flash.className =
-            "explosion-flash";
-
-        effectLayer.appendChild(
-            flash
-        );
-
-
-        const explosionEmojis = [
-            "💥",
-            "🔥",
-            "💨",
-            "⚡",
-            "💣"
-        ];
-
-
-        for (
-            let i = 0;
-            i < 30;
-            i++
-        ) {
-
-            const particle =
-                document.createElement(
-                    "div"
-                );
-
-            particle.className =
-                "effect-emoji";
-
-            particle.textContent =
-                explosionEmojis[
-                    Math.floor(
-                        Math.random() *
-                        explosionEmojis.length
-                    )
-                ];
-
-
-            const angle =
-                Math.random() *
-                Math.PI * 2;
-
-
-            const distance =
-                120 +
-                Math.random() * 320;
-
-
-            particle.style.setProperty(
-                "--x",
-                `${Math.cos(angle) * distance}px`
-            );
-
-            particle.style.setProperty(
-                "--y",
-                `${Math.sin(angle) * distance}px`
-            );
-
-            particle.style.setProperty(
-                "--rotate",
-                `${Math.random() * 720 - 360}deg`
-            );
-
-
-            effectLayer.appendChild(
-                particle
-            );
-
-        }
-
-
-        sound(
-            100,
-            0.5,
-            "sawtooth"
-        );
-
-
-        const gameOverText =
-            document.createElement(
-                "div"
-            );
-
-        gameOverText.className =
-            "game-over-effect-text";
-
-        gameOverText.textContent =
-            "💥 GAME OVER! 💥";
-
-        effectLayer.appendChild(
-            gameOverText
-        );
-
-
-    }, 700);
-
-
-    setTimeout(() => {
-
-        effectLayer.innerHTML =
-            "";
-
-    }, 2300);
-
-}
-
-
-// =========================================
+// =====================================================
 // GAME OVER
-// =========================================
+// =====================================================
 
-function gameOver() {
+function endGame() {
 
-    if (!gameRunning) {
-        return;
-    }
+    gameRunning =
+        false;
 
+    gamePaused =
+        false;
 
-    gameRunning = false;
-
-    gamePaused = true;
-
-
-    clearInterval(
-        timerInterval
-    );
 
     cancelAnimationFrame(
         animationId
     );
 
+    clearInterval(
+        timerInterval
+    );
+
 
     stopMusic();
+
+    playSound("lose");
+
+
+    pauseButton.style.display =
+        "none";
 
 
     star.style.display =
@@ -1470,6 +1504,9 @@ function gameOver() {
         "none";
 
 
+    updateHighScore();
+
+
     finalScore.textContent =
         score;
 
@@ -1477,46 +1514,57 @@ function gameOver() {
         highScore;
 
 
-    bombBlast();
-
-
-    // Show Game Over after bomb blast starts
-
-    setTimeout(() => {
-
-        gameOverScreen.style.display =
-            "flex";
-
-    }, 850);
+    gameOverScreen.style.display =
+        "flex";
 
 }
 
 
-// =========================================
+// =====================================================
 // WIN
-// =========================================
+// =====================================================
 
-function winGame() {
+function showWin() {
 
-    gameRunning = false;
+    gameRunning =
+        false;
 
-    gamePaused = true;
+    gamePaused =
+        false;
 
-
-    clearInterval(
-        timerInterval
-    );
 
     cancelAnimationFrame(
         animationId
     );
 
+    clearInterval(
+        timerInterval
+    );
+
 
     stopMusic();
 
+    playSound("win");
 
-    levelCompleteScreen.style.display =
+
+    pauseButton.style.display =
         "none";
+
+
+    star.style.display =
+        "none";
+
+    coin.style.display =
+        "none";
+
+    heart.style.display =
+        "none";
+
+    boost.style.display =
+        "none";
+
+
+    updateHighScore();
 
 
     winScore.textContent =
@@ -1526,51 +1574,168 @@ function winGame() {
         highScore;
 
 
-    setTimeout(() => {
-
-        winScreen.style.display =
-            "flex";
-
-    }, 200);
+    winScreen.style.display =
+        "flex";
 
 }
 
 
-// =========================================
-// HIGH SCORE
-// =========================================
+// =====================================================
+// START GAME
+// =====================================================
 
-function saveHighScore() {
+function startGame() {
 
-    if (
-        score >
-        highScore
-    ) {
+    initAudio();
 
-        highScore =
-            score;
 
-        localStorage.setItem(
-            "littleStarHighScore",
-            highScore
+    score = 0;
+
+    coins = 0;
+
+    lives = 5;
+
+    level = 1;
+
+    starsCollected = 0;
+
+    starsNeeded = 5;
+
+    timeLeft = 60;
+
+
+    playerX = 50;
+
+
+    starSpeed = 180;
+
+
+    boostActive = false;
+
+    boostEndTime = 0;
+
+
+    gameRunning =
+        true;
+
+    gamePaused =
+        false;
+
+
+    gameOverScreen.style.display =
+        "none";
+
+    levelCompleteScreen.style.display =
+        "none";
+
+    winScreen.style.display =
+        "none";
+
+
+    powerStatus.textContent =
+        "";
+
+
+    startButton.style.display =
+        "none";
+
+    pauseButton.style.display =
+        "inline-block";
+
+    pauseButton.textContent =
+        "⏸️ Pause";
+
+
+    player.style.left =
+        playerX + "%";
+
+
+    resetStar();
+
+    hideOptionalItems();
+
+
+    updateUI();
+
+
+    lastTime =
+        performance.now();
+
+
+    startMusic();
+
+    startTimer();
+
+
+    cancelAnimationFrame(
+        animationId
+    );
+
+
+    animationId =
+        requestAnimationFrame(
+            gameLoop
         );
 
-        highScoreText.textContent =
-            highScore;
+}
 
-    }
+
+// =====================================================
+// TIMER
+// =====================================================
+
+function startTimer() {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    timerInterval =
+        setInterval(
+            () => {
+
+                if (
+                    !gameRunning ||
+                    gamePaused
+                ) {
+
+                    return;
+
+                }
+
+
+                timeLeft--;
+
+
+                updateUI();
+
+
+                if (
+                    timeLeft <= 0
+                ) {
+
+                    endGame();
+
+                }
+
+            },
+            1000
+        );
 
 }
 
 
-// =========================================
+// =====================================================
 // PAUSE
-// =========================================
+// =====================================================
 
 function togglePause() {
 
     if (!gameRunning) {
+
         return;
+
     }
 
 
@@ -1583,6 +1748,10 @@ function togglePause() {
         pauseButton.textContent =
             "▶️ Resume";
 
+        document.body.classList.add(
+            "game-paused"
+        );
+
         stopMusic();
 
     } else {
@@ -1590,275 +1759,23 @@ function togglePause() {
         pauseButton.textContent =
             "⏸️ Pause";
 
-        startMusic();
-
-        animationId =
-            requestAnimationFrame(
-                gameLoop
-            );
-
-    }
-
-}
-
-
-// =========================================
-// GAME LOOP
-// =========================================
-
-let lastTime = 0;
-
-let lastCoinSpawn = 0;
-
-let lastHeartSpawn = 0;
-
-let lastBoostSpawn = 0;
-
-
-function gameLoop(timestamp) {
-
-    if (!gameRunning) {
-        return;
-    }
-
-
-    if (gamePaused) {
-        return;
-    }
-
-
-    const delta =
-        lastTime
-            ? (timestamp - lastTime) / 16.67
-            : 1;
-
-
-    lastTime =
-        timestamp;
-
-
-    updatePlayer(delta);
-
-
-    // STAR
-
-    if (
-        star.style.display !==
-        "block"
-    ) {
-
-        spawnStar();
-
-    }
-
-
-    starY +=
-        starSpeed *
-        delta;
-
-
-    star.style.top =
-        starY + "px";
-
-
-    if (
-        isColliding(star)
-    ) {
-
-        catchStar();
-
-    } else if (
-        starY >
-        gameArea.clientHeight + 50
-    ) {
-
-        star.style.display =
-            "none";
-
-        lives--;
-
-        score =
-            Math.max(
-                0,
-                score - 2
-            );
-
-
-        updateUI();
-
-
-        if (lives <= 0) {
-
-            gameOver();
-
-            return;
-
-        }
-
-    }
-
-
-    // COIN
-
-    if (
-        timestamp -
-        lastCoinSpawn >
-        4500 &&
-        coin.style.display !==
-        "block"
-    ) {
-
-        spawnCoin();
-
-        lastCoinSpawn =
-            timestamp;
-
-    }
-
-
-    if (
-        coin.style.display ===
-        "block"
-    ) {
-
-        coinY +=
-            coinSpeed *
-            delta;
-
-        coin.style.top =
-            coinY + "px";
-
-
-        if (
-            isColliding(coin)
-        ) {
-
-            catchCoin();
-
-        } else if (
-            coinY >
-            gameArea.clientHeight + 50
-        ) {
-
-            coin.style.display =
-                "none";
-
-        }
-
-    }
-
-
-    // HEART
-
-    if (
-        timestamp -
-        lastHeartSpawn >
-        9000 &&
-        heart.style.display !==
-        "block"
-    ) {
-
-        spawnHeart();
-
-        lastHeartSpawn =
-            timestamp;
-
-    }
-
-
-    if (
-        heart.style.display ===
-        "block"
-    ) {
-
-        heartY +=
-            heartSpeed *
-            delta;
-
-        heart.style.top =
-            heartY + "px";
-
-
-        if (
-            isColliding(heart)
-        ) {
-
-            catchHeart();
-
-        } else if (
-            heartY >
-            gameArea.clientHeight + 50
-        ) {
-
-            heart.style.display =
-                "none";
-
-        }
-
-    }
-
-
-    // BOOST
-
-    if (
-        timestamp -
-        lastBoostSpawn >
-        12000 &&
-        boost.style.display !==
-        "block"
-    ) {
-
-        spawnBoost();
-
-        lastBoostSpawn =
-            timestamp;
-
-    }
-
-
-    if (
-        boost.style.display ===
-        "block"
-    ) {
-
-        boostY +=
-            boostSpeed *
-            delta;
-
-        boost.style.top =
-            boostY + "px";
-
-
-        if (
-            isColliding(boost)
-        ) {
-
-            catchBoost();
-
-        } else if (
-            boostY >
-            gameArea.clientHeight + 50
-        ) {
-
-            boost.style.display =
-                "none";
-
-        }
-
-    }
-
-
-    animationId =
-        requestAnimationFrame(
-            gameLoop
+        document.body.classList.remove(
+            "game-paused"
         );
 
+        lastTime =
+            performance.now();
+
+        startMusic();
+
+    }
+
 }
 
 
-// =========================================
+// =====================================================
 // KEYBOARD
-// =========================================
+// =====================================================
 
 document.addEventListener(
     "keydown",
@@ -1866,12 +1783,11 @@ document.addEventListener(
 
         if (
             event.key ===
-            "ArrowLeft" ||
-            event.key.toLowerCase() ===
-            "a"
+            "ArrowLeft"
         ) {
 
-            leftPressed = true;
+            keys.left =
+                true;
 
             event.preventDefault();
 
@@ -1880,28 +1796,11 @@ document.addEventListener(
 
         if (
             event.key ===
-            "ArrowRight" ||
-            event.key.toLowerCase() ===
-            "d"
+            "ArrowRight"
         ) {
 
-            rightPressed = true;
-
-            event.preventDefault();
-
-        }
-
-
-        if (
-            event.key ===
-            " "
-        ) {
-
-            if (gameRunning) {
-
-                togglePause();
-
-            }
+            keys.right =
+                true;
 
             event.preventDefault();
 
@@ -1917,24 +1816,22 @@ document.addEventListener(
 
         if (
             event.key ===
-            "ArrowLeft" ||
-            event.key.toLowerCase() ===
-            "a"
+            "ArrowLeft"
         ) {
 
-            leftPressed = false;
+            keys.left =
+                false;
 
         }
 
 
         if (
             event.key ===
-            "ArrowRight" ||
-            event.key.toLowerCase() ===
-            "d"
+            "ArrowRight"
         ) {
 
-            rightPressed = false;
+            keys.right =
+                false;
 
         }
 
@@ -1942,117 +1839,136 @@ document.addEventListener(
 );
 
 
-// =========================================
-// MOBILE BUTTONS
-// =========================================
+// =====================================================
+// MOBILE / POINTER CONTROLS
+// =====================================================
 
-function holdButton(
+function setupHoldButton(
     button,
     direction
 ) {
 
+    const press = (event) => {
+
+        event.preventDefault();
+
+        initAudio();
+
+        keys[direction] =
+            true;
+
+    };
+
+
+    const release = (event) => {
+
+        event.preventDefault();
+
+        keys[direction] =
+            false;
+
+    };
+
+
     button.addEventListener(
         "pointerdown",
-        (event) => {
-
-            event.preventDefault();
-
-            if (
-                direction ===
-                "left"
-            ) {
-
-                leftPressed = true;
-
-            } else {
-
-                rightPressed = true;
-
-            }
-
-        }
+        press
     );
-
 
     button.addEventListener(
         "pointerup",
-        () => {
-
-            if (
-                direction ===
-                "left"
-            ) {
-
-                leftPressed = false;
-
-            } else {
-
-                rightPressed = false;
-
-            }
-
-        }
+        release
     );
-
 
     button.addEventListener(
         "pointerleave",
-        () => {
-
-            if (
-                direction ===
-                "left"
-            ) {
-
-                leftPressed = false;
-
-            } else {
-
-                rightPressed = false;
-
-            }
-
-        }
+        release
     );
-
 
     button.addEventListener(
         "pointercancel",
-        () => {
-
-            if (
-                direction ===
-                "left"
-            ) {
-
-                leftPressed = false;
-
-            } else {
-
-                rightPressed = false;
-
-            }
-
-        }
+        release
     );
 
 }
 
 
-holdButton(
+setupHoldButton(
     leftButton,
     "left"
 );
 
-holdButton(
+
+setupHoldButton(
     rightButton,
     "right"
 );
 
 
-// =========================================
+// =====================================================
+// FULLSCREEN
+// =====================================================
+
+fullscreenButton.addEventListener(
+    "click",
+    async () => {
+
+        try {
+
+            if (!document.fullscreenElement) {
+
+                await document.documentElement
+                    .requestFullscreen();
+
+                document.body.classList.add(
+                    "fullscreen-mode"
+                );
+
+                fullscreenButton.textContent =
+                    "⛶ Exit Fullscreen";
+
+            } else {
+
+                await document.exitFullscreen();
+
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Fullscreen unavailable"
+            );
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "fullscreenchange",
+    () => {
+
+        if (
+            !document.fullscreenElement
+        ) {
+
+            document.body.classList.remove(
+                "fullscreen-mode"
+            );
+
+            fullscreenButton.textContent =
+                "⛶ Fullscreen";
+
+        }
+
+    }
+);
+
+
+// =====================================================
 // BUTTON EVENTS
-// =========================================
+// =====================================================
 
 startButton.addEventListener(
     "click",
@@ -2080,127 +1996,187 @@ nextLevelButton.addEventListener(
 
 restartButton.addEventListener(
     "click",
-    startGame
+    () => {
+
+        startGame();
+
+    }
 );
 
 
 winRestartButton.addEventListener(
     "click",
-    startGame
-);
-
-
-// =========================================
-// FULLSCREEN
-// =========================================
-
-async function enterFullscreen() {
-
-    try {
-
-        if (
-            !document.fullscreenElement
-        ) {
-
-            await gameArea.requestFullscreen();
-
-        }
-
-    } catch (error) {
-
-        console.log(
-            "Fullscreen unavailable"
-        );
-
-    }
-
-}
-
-
-async function exitFullscreen() {
-
-    try {
-
-        if (
-            document.fullscreenElement
-        ) {
-
-            await document.exitFullscreen();
-
-        }
-
-    } catch (error) {
-
-        console.log(
-            "Exit fullscreen unavailable"
-        );
-
-    }
-
-}
-
-
-fullscreenButton.addEventListener(
-    "click",
-    enterFullscreen
-);
-
-
-exitFullscreenButton.addEventListener(
-    "click",
-    exitFullscreen
-);
-
-
-// =========================================
-// FULLSCREEN BUTTON TEXT
-// =========================================
-
-document.addEventListener(
-    "fullscreenchange",
     () => {
 
-        if (
-            document.fullscreenElement
-        ) {
-
-            fullscreenButton.textContent =
-                "⛶ Fullscreen ON";
-
-        } else {
-
-            fullscreenButton.textContent =
-                "⛶ Fullscreen";
-
-        }
+        startGame();
 
     }
 );
 
 
-// =========================================
-// INITIALIZE
-// =========================================
+// =====================================================
+// UPDATE UI
+// =====================================================
 
-levelCompleteScreen.style.display =
-    "none";
+function updateUI() {
 
-gameOverScreen.style.display =
-    "none";
+    scoreText.textContent =
+        score;
 
-winScreen.style.display =
-    "none";
+    coinsText.textContent =
+        coins;
 
-star.style.display =
-    "none";
+    livesText.textContent =
+        lives;
 
-coin.style.display =
-    "none";
+    levelText.textContent =
+        level;
 
-heart.style.display =
-    "none";
+    timeText.textContent =
+        timeLeft;
 
-boost.style.display =
-    "none";
+    highScoreText.textContent =
+        highScore;
+
+}
+
+
+// =====================================================
+// HIGH SCORE
+// =====================================================
+
+function updateHighScore() {
+
+    if (
+        score >
+        highScore
+    ) {
+
+        highScore =
+            score;
+
+        localStorage.setItem(
+            "littleStarHighScore",
+            highScore
+        );
+
+    }
+
+    highScoreText.textContent =
+        highScore;
+
+}
+
+
+// =====================================================
+// GAME LOOP
+// =====================================================
+
+let lastTime =
+    performance.now();
+
+
+function gameLoop(currentTime) {
+
+    if (!gameRunning) {
+
+        return;
+
+    }
+
+
+    if (!gamePaused) {
+
+        let deltaTime =
+            (currentTime -
+                lastTime) /
+            1000;
+
+
+        // Prevent huge movement after lag/tab switch
+
+        if (
+            deltaTime > 0.05
+        ) {
+
+            deltaTime =
+                0.05;
+
+        }
+
+
+        lastTime =
+            currentTime;
+
+
+        updatePlayer(
+            deltaTime
+        );
+
+        updateStar(
+            deltaTime
+        );
+
+        updateCoin(
+            deltaTime
+        );
+
+        updateHeart(
+            deltaTime
+        );
+
+        updateBoost(
+            deltaTime
+        );
+
+    } else {
+
+        lastTime =
+            currentTime;
+
+    }
+
+
+    animationId =
+        requestAnimationFrame(
+            gameLoop
+        );
+
+}
+
+
+// =====================================================
+// INITIAL STATE
+// =====================================================
 
 updateUI();
+
+resetStar();
+
+hideOptionalItems();
+
+pauseButton.style.display =
+    "none";
+
+
+// Music preload
+
+if (backgroundMusic) {
+
+    backgroundMusic.preload =
+        "auto";
+
+    backgroundMusic.load();
+
+    backgroundMusic.addEventListener(
+        "error",
+        () => {
+
+            console.log(
+                "music.mp3 পাওয়া যায়নি। music.mp3 অবশ্যই index.html-এর পাশে থাকতে হবে।"
+            );
+
+        }
+    );
+
+}
